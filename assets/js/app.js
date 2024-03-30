@@ -58,7 +58,6 @@ fetch(`${apiUrl}${pageEndPoints[0]}`)
                     console.error('Ahhhhh no puede seer:', error)
                 })
             })
-            //Aqui ira una logica de la fruta madre, una funcion que llame a otra desde fuera porque sino no se puede ermano
             
             
 })
