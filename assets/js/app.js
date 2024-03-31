@@ -1,24 +1,14 @@
 //Declaraciones
 const apiUrl = "http://localhost:3000/"
+const jsonPath = "assets/js/products.json"
 const pageEndPoints = ['products', 'categories', 'brands']
-
-let dataItem = {
-    id: 0,
-    name: "",
-    description: "",
-    picture: "",
-    price: 0,
-    stock: 0,
-    category: "",
-    brand: ""
-}
-const dataFrame = []
 
 //Declaraciones de elementos del html
 const container = document.querySelector('#container')
 const row = document.querySelector('#cards-row')
 
 //Marco principal
+// fetch(jsonPath)
 fetch(`${apiUrl}${pageEndPoints[0]}`)
 .then( (response) =>{
     if (!response.ok) {
@@ -27,38 +17,11 @@ fetch(`${apiUrl}${pageEndPoints[0]}`)
     return response.json()
 })
 .then((products)=>{
-    //products.sort((a, b) => a.id - b.id) //Sortear por ID
+    products.sort((a, b) => a.id - b.id) //Sortear por ID
 
-    products.forEach((product,idObj) => {
-        const { id, name, description, picture, price, stock, category_id, brand_id } = product
-        fetch(`${apiUrl}${pageEndPoints[1]}/${category_id}`)
-            .then(response => response.json())
-            .then(category =>{
-                fetch(`${apiUrl}${pageEndPoints[2]}/${brand_id}`)
-                    .then(response => response.json())
-                    .then(brand =>{
-                        dataItem ={
-                            id: idObj,
-                            name: name,
-                            description: description,
-                            picture: picture,
-                            price: price,
-                            stock: stock,
-                            category: category.name,
-                            brand: brand.name
-                        }
-                        //dataFrame.push(dataItem)
-                        formatterDater(dataItem);
-                    })
-                    .catch(error=>{
-                        console.error('Ocurrio un error aaaaaa:', error)
-                    })
-                })
-                .catch(error=>{
-                    console.error('Ahhhhh no puede seer:', error)
-                })
-            })
-            
+    products.forEach((product) => {
+        formatterDater(product);
+    })
             
 })
 .catch(error => {
