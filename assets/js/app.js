@@ -1,15 +1,21 @@
 //Declaraciones
 const apiUrl = "http://localhost:3000/"
 const jsonPath = "assets/js/products.json"
+const tempUrl = "https://pencilapigenerator.onrender.com/"
 const pageEndPoints = ['products', 'categories', 'brands']
 
 //Declaraciones de elementos del html
 const container = document.querySelector('#container')
 const row = document.querySelector('#cards-row')
 
+//Sets de informacion para pruebas
+const uniquePrices = new Set()
+const uniqueCategory = new Set()
+const uniqueBrand = new Set()
+
 //Marco principal
 // fetch(jsonPath)
-fetch(`${apiUrl}${pageEndPoints[0]}`)
+fetch(`${tempUrl}${pageEndPoints[0]}`)
 .then( (response) =>{
     if (!response.ok) {
         throw new Error('Hubo un error')
@@ -20,8 +26,9 @@ fetch(`${apiUrl}${pageEndPoints[0]}`)
     products.sort((a, b) => a.id - b.id) //Sortear por ID
 
     products.forEach((product) => {
-        formatterDater(product);
+        formatterDater(product)
     })
+    console.log(setInstances(products))
             
 })
 .catch(error => {
@@ -51,4 +58,22 @@ function formatterDater(data){
 
         `
         row.appendChild(cardHtml)
+}
+
+function setInstances(data){
+    data.forEach(data=>{
+        const { price, brand, category } = data
+        uniquePrices.add(price)
+        uniqueBrand.add(brand)
+        uniqueCategory.add(category)
+    })
+    return {
+        prices: [...uniquePrices],
+        brands: [...uniqueBrand],
+        categories: [...uniqueCategory]
+    }
+}
+
+function llenarSelect(object){
+
 }

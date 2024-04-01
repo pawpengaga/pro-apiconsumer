@@ -1,0 +1,10 @@
+Buscar por:
+
+- Marca
+- Categoria
+
+- Precio max
+- Precio min
+
+- Stock (Usar logica booleana)
+- Buscador por nombre en caja de texto (Experimental)
